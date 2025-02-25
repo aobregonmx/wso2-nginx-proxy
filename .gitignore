@@ -1,4 +1,6 @@
-*.log
+log/am/*.log
+log/gw/*.log
+
 .DS_Store
 .AppleDouble
 .LSOverride
