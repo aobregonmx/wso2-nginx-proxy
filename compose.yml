@@ -1,0 +1,33 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./ssl:/etc/nginx/ssl
+      - ./log/am:/etc/nginx/log/am/https
+      - ./log/gw:/etc/nginx/log/gw/https
+    depends_on:
+      - wso2_apim
+    restart: always
+    networks:
+      - wso2_network
+
+  wso2_apim:
+    image: wso2/wso2am:4.3.0
+    container_name: wso2_apim
+    volumes:
+      - ./deployment.toml:/home/wso2carbon/wso2am-4.3.0/repository/conf/deployment.toml
+    ports:
+      - "9443:9443"
+      - "8243:8243"
+    restart: always
+    networks:
+      - wso2_network
+
+networks:
+  wso2_network:
+    driver: bridge
