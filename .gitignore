@@ -1,5 +1,5 @@
-log/am/*.log
-log/gw/*.log
+# Ignorar todos los archivos .log en todos los directorios y subdirectorios
+*.log
 
 .DS_Store
 .AppleDouble
