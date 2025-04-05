@@ -17,14 +17,14 @@ services:
       - wso2_network
 
   wso2_apim:
-    image: wso2/wso2am:4.3.0
-    container_name: wso2_apim
+    image: wso2/wso2am:4.0.0-multiarch
+    container_name: apim_manager
     volumes:
-      - ./deployment.toml:/home/wso2carbon/wso2am-4.3.0/repository/conf/deployment.toml
-    ports:
-      - "9443:9443"
-      - "8243:8243"
-      - "8280:8280"
+      - ./deployment.toml:/home/wso2carbon/wso2am-4.0.0/repository/conf/deployment.toml
+    # ports:
+    #   - "9443:9443"
+    #   - "8243:8243"
+    #   - "8280:8280"
     restart: always
     networks:
       - wso2_network
