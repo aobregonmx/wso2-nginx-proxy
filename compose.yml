@@ -17,7 +17,7 @@ services:
       - wso2_network
 
   wso2_apim:
-    image: wso2/wso2am:4.0.0-multiarch
+    image: wso2/wso2am:latest
     container_name: apim_manager
     volumes:
       - ./deployment.toml:/home/wso2carbon/wso2am-4.0.0/repository/conf/deployment.toml
