@@ -77,3 +77,12 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 **Contributing**
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
+## Portals
+
+The WSO2 API Manager consists of several web interfaces, all accessible through the NGINX reverse proxy:
+
+- **Admin Portal**: [https://apim.localhost/admin](https://apim.localhost/admin) - For API administration and governance tasks
+- **Publisher Portal**: [https://apim.localhost/publisher](https://apim.localhost/publisher) - For API creation, documentation, and lifecycle management
+- **Developer Portal**: [https://apim.localhost/devportal](https://apim.localhost/devportal) - For discovering, subscribing, and testing APIs
+- **Carbon Console**: [https://apim.localhost/carbon](https://apim.localhost/carbon) - For server administration
