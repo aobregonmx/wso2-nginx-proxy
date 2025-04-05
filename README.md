@@ -65,20 +65,23 @@ Update the following configurations in the respective files for your environment
 - **deployment.toml**:
   - Set the `hostname` property under `[server]` to match your public-facing domain (e.g., `apim.localhost`).
 
-
 4. **Start the containers using Docker Compose**
+
 Return to the root directory of the repository and run:
 ```sh
 cd ..
+```
+Run the following command to start the containers:
+```sh
 docker-compose up -d --build
 ```
+
 5. **Access the Services**
 - WSO2 API Manager: https://apim.localhost
 
 > **Note**: Ensure that your local DNS or `/etc/hosts` file is configured to resolve `apim.localhost` to the appropriate IP address (e.g., `127.0.0.1` for local setups).
 
-
-**Configuration Details**
+## Configuration Details
 
 **NGINX Configuration**
 The NGINX configuration file (nginx/conf.d/nginx.conf) is set up to forward requests to the WSO2 API Manager while hiding the internal URLs and ports. It uses proxy_redirect and sub_filter directives to ensure that all internal URLs are replaced with the public-facing URLs.

@@ -8,3 +8,7 @@ Icon?
 ._*
 .Spotlight-V100
 .Trashes
+
+# Ignore SSL certificates and keys in nginx ssl directory
+nginx/ssl/*.crt
+nginx/ssl/*.key
