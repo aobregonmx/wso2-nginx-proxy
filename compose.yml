@@ -24,6 +24,7 @@ services:
     ports:
       - "9443:9443"
       - "8243:8243"
+      - "8280:8280"
     restart: always
     networks:
       - wso2_network
