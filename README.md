@@ -21,10 +21,10 @@ The main goal of this repository is to provide a secure and efficient way to man
 
 1. **Clone the Repository**
 
-   ```sh
-   git clone https://github.com/yourusername/wso2-nginx-proxy.git
-   cd wso2-nginx-proxy
-   ```
+```sh
+git clone https://github.com/yourusername/wso2-nginx-proxy.git
+cd wso2-nginx-proxy
+```
 
 2. **Configure SSL Certificates**
 
@@ -42,7 +42,7 @@ Ensure the nginx.conf and deployment.toml files are correctly configured for you
 Start the containers using Docker Compose:
 
 ```sh
-docker-compose up -d
+docker-compose up -d --build
 ```
 
 5. **Access the Services**
