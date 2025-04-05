@@ -13,41 +13,70 @@ The main goal of this repository is to provide a secure and efficient way to man
 
 ## Repository Structure
 
-- `nginx/conf.d/nginx.conf`: NGINX configuration file.
-- `deployment.toml`: Configuration file for WSO2 API Manager.
-- `docker-compose.yml`: Docker Compose file to run the containers.
+```
+├── nginx/
+│   ├── conf.d/
+│   │   └── nginx.conf     # NGINX configuration for reverse proxy
+│   └── ssl/
+│       ├── selfsigned.crt # Self-signed certificate for HTTPS
+│       └── selfsigned.key # Private key for SSL certificate
+├── wso2/
+│   └── conf/
+│       └── deployment.toml # WSO2 API Manager configuration file
+├── docker-compose.yml     # Docker compose configuration
+├── LICENSE                # License file
+├── README.md              # This documentation file
+└── CONTRIBUTING.md        # Guidelines for contributing
+```
 
 ## Setup Instructions
 
 1. **Clone the Repository**
 
 ```sh
-git clone https://github.com/yourusername/wso2-nginx-proxy.git
+git clone https://github.com/aobregon/wso2-nginx-proxy.git
 cd wso2-nginx-proxy
 ```
 
 2. **Configure SSL Certificates**
 
-Place your SSL certificates in the nginx/ssl directory. Ensure you have the following files:
-
-- apim.localhost.crt
-- apim.localhost.key
-
-3. **Update Configuration Files**
-
-Ensure the nginx.conf and deployment.toml files are correctly configured for your environment.
-
-4. **Run Docker Compose**
-
-Start the containers using Docker Compose:
-
+Navigate to the ssl folder in nginx and generate the self-signed SSL certificates:
 ```sh
-docker-compose up -d --build
+cd nginx/ssl
+```
+```sh
+# Generate a self-signed SSL certificate
+# This command will create a self-signed certificate valid for 365 days
+# and a private key.
+# Adjust the -subj values as needed for your organization.
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout selfsigned.key -out selfsigned.crt \
+    -subj "/C=MX/ST=CDMX/L=México City/O=my-company/OU=IT/CN=apim.localhost"
+  
+  > **Note**: Customize the `-subj` values (`/C`, `/ST`, `/L`, `/O`, `/OU`, `/CN`) to match your organization's details and location.
 ```
 
-5. **Access the Services**
+Update the following configurations in the respective files for your environment:
 
+- **nginx.conf**:
+  - Replace `apim.localhost` with your desired domain name.
+  - Update the SSL certificate and key paths to match the generated or provided certificates.
+
+- **deployment.toml**:
+  - Set the `hostname` property under `[server]` to match your public-facing domain (e.g., `apim.localhost`).
+
+
+4. **Start the containers using Docker Compose**
+Return to the root directory of the repository and run:
+```sh
+cd ..
+docker-compose up -d --build
+```
+5. **Access the Services**
 - WSO2 API Manager: https://apim.localhost
+
+> **Note**: Ensure that your local DNS or `/etc/hosts` file is configured to resolve `apim.localhost` to the appropriate IP address (e.g., `127.0.0.1` for local setups).
+
 
 **Configuration Details**
 
@@ -58,7 +87,7 @@ The NGINX configuration file (nginx/conf.d/nginx.conf) is set up to forward requ
 The deployment.toml file is configured to use apim.localhost as the hostname. This ensures that all internal references within WSO2 APIM use the public-facing URL.
 
 **Docker Compose**
-The docker-compose.yml file sets up two services:
+The compose.yml file sets up two services:
 
 - wso2_apim: The WSO2 API Manager container.
 - nginx: The NGINX reverse proxy container.
@@ -66,23 +95,23 @@ The docker-compose.yml file sets up two services:
 **Troubleshooting**
 If you encounter any issues, check the logs for both the NGINX and WSO2 APIM containers:
 ```sh
-docker-compose logs nginx
-docker-compose logs wso2_apim
+docker compose logs nginx
+docker compose logs wso2_apim
 ```
 
-Ensure that the SSL certificates are correctly placed and that the configuration files are properly set up.
-
+**License**
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
 **License**
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 **Contributing**
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+Contributions are welcome! Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for detailed guidelines. You can also open an issue or submit a pull request for any improvements or bug fixes.
 
 ## Portals
 
 The WSO2 API Manager consists of several web interfaces, all accessible through the NGINX reverse proxy:
 
-- **Admin Portal**: [https://apim.localhost/admin](https://apim.localhost/admin) - For API administration and governance tasks
-- **Publisher Portal**: [https://apim.localhost/publisher](https://apim.localhost/publisher) - For API creation, documentation, and lifecycle management
-- **Developer Portal**: [https://apim.localhost/devportal](https://apim.localhost/devportal) - For discovering, subscribing, and testing APIs
-- **Carbon Console**: [https://apim.localhost/carbon](https://apim.localhost/carbon) - For server administration
+- **Admin Portal**: [https://apim.localhost/admin](https://apim.localhost/admin) - For API administration and governance tasks, such as managing users, roles, and permissions, and monitoring API usage.
+- **Publisher Portal**: [https://apim.localhost/publisher](https://apim.localhost/publisher) - For API creation, documentation, and lifecycle management, including defining API resources, policies, and publishing APIs.
+- **Developer Portal**: [https://apim.localhost/devportal](https://apim.localhost/devportal) - For discovering, subscribing, and testing APIs, allowing developers to explore available APIs and integrate them into their applications.
+- **Carbon Console**: [https://apim.localhost/carbon](https://apim.localhost/carbon) - For server administration, such as configuring system settings, managing tenants, and monitoring server health.
