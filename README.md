@@ -113,6 +113,7 @@ Contributions are welcome! Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md
 ## Portals
 
 The WSO2 API Manager consists of several web interfaces, all accessible through the NGINX reverse proxy:
+The default password for the admin user is `admin` and the username is `admin`.
 
 - **Admin Portal**: [https://apim.localhost/admin](https://apim.localhost/admin) - For API administration and governance tasks, such as managing users, roles, and permissions, and monitoring API usage.
 - **Publisher Portal**: [https://apim.localhost/publisher](https://apim.localhost/publisher) - For API creation, documentation, and lifecycle management, including defining API resources, policies, and publishing APIs.
