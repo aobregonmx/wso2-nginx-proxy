@@ -30,7 +30,7 @@ services:
         /home/wso2carbon/docker-entrypoint.sh
       "
     extra_hosts:
-      - "apim.localhost:172.22.0.3"
+      - "apim.localhost:172.22.0.3"  # Cambia la IP por la que tenga tu contenedor NGINX
     networks:
       - wso2_network
 networks:

@@ -51,16 +51,23 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout ./nginx/ssl/selfsigned.key -out ./nginx/ssl/selfsigned.crt \
   -subj "/C=MX/ST=CDMX/L=México City/O=wso2.com/OU=IT/CN=apim.localhost"
 ```  
-> **Note**: Customize the `-subj` values (`/C`, `/ST`, `/L`, `/O`, `/OU`, `/CN`) to match your organization's details and location.
+> **Note**: 
+> Customize the `-subj` values (`/C`, `/ST`, `/L`, `/O`, `/OU`, `/CN`) to match your organization's details and location.
 
 Update the following configurations in the respective files for your environment:
 
-- **nginx.conf**:
-  - Replace `apim.localhost` with your desired domain name.
-  - Update the SSL certificate and key paths to match the generated or provided certificates.
+> **nginx.conf**:
+> - Replace `apim.localhost` with your desired domain name.
+> - Update the SSL certificate and key paths to match the generated or provided certificates.
 
-- **deployment.toml**:
-  - Set the `hostname` property under `[server]` to match your public-facing domain (e.g., `apim.localhost`).
+> **deployment.toml**:
+> - Set the `hostname` property under `[server]` to match your public-facing domain (e.g., `apim.localhost`).
+
+> **compose.yml**:
+> - Ensure the `extra_hosts` entry points to the correct IP address of your NGINX container. This is typically the IP address of the NGINX service in your Docker network.
+> - Obtain the IP of NGINX with:
+> `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' nginx-proxy`
+> - If the IP changes, update this value.
 
 4. **Start the containers using Docker Compose**
 
