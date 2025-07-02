@@ -75,7 +75,7 @@ cd ..
 ```
 Run the following command to start the containers:
 ```sh
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 5. **Access the Services**
