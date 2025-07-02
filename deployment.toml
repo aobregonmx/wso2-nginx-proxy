@@ -60,15 +60,15 @@ provider = "wso2"
 display_in_api_console = true
 description = "This is a hybrid gateway that handles both production and sandbox token traffic."
 show_as_token_endpoint_url = true
-service_url = "https://apim.localhost:${mgt.transport.https.port}/services/"
+service_url = "https://gw.localhost:${mgt.transport.https.port}/services/"
 username= "${admin.username}"
 password= "${admin.password}"
-ws_endpoint = "ws://apim.localhost:9099"
-wss_endpoint = "wss://apim.localhost:8099"
-http_endpoint = "http://apim.localhost"
-https_endpoint = "https://apim.localhost"
-websub_event_receiver_http_endpoint = "http://apim.localhost:9021"
-websub_event_receiver_https_endpoint = "https://apim.localhost:8021"
+ws_endpoint = "ws://gw.localhost:9099"
+wss_endpoint = "wss://gw.localhost:8099"
+http_endpoint = "http://gw.localhost"
+https_endpoint = "https://gw.localhost"
+websub_event_receiver_http_endpoint = "http://gw.localhost:9021"
+websub_event_receiver_https_endpoint = "https://gw.localhost:8021"
 
 [apim.sync_runtime_artifacts.gateway]
 gateway_labels =["Default"]

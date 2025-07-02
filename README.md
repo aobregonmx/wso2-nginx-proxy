@@ -40,18 +40,17 @@ cd wso2-nginx-proxy
 
 2. **Configure SSL Certificates**
 
-Navigate to the ssl folder in nginx and generate the self-signed SSL certificates:
-```sh
-cd nginx/ssl
-```
+Generate a self-signed SSL certificate or use your own SSL certificate. If you choose to generate a self-signed certificate, you can use the following command:
 ```sh
 # Generate a self-signed SSL certificate
 # This command will create a self-signed certificate valid for 365 days
 # and a private key.
 # Adjust the -subj values as needed for your organization.
+```sh
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-  -keyout selfsigned.key -out selfsigned.crt \
-    -subj "/C=MX/ST=CDMX/L=México City/O=my-company/OU=IT/CN=apim.localhost"
+  -keyout ./nginx/ssl/selfsigned.key -out ./nginx/ssl/selfsigned.crt \
+  -subj "/C=MX/ST=CDMX/L=México City/O=wso2.com/OU=IT/CN=apim.localhost"
+```
   
   > **Note**: Customize the `-subj` values (`/C`, `/ST`, `/L`, `/O`, `/OU`, `/CN`) to match your organization's details and location.
 ```
@@ -79,8 +78,11 @@ docker-compose up -d --build
 5. **Access the Services**
 - WSO2 API Manager: https://apim.localhost
 
-> **Note**: Ensure that your local DNS or `/etc/hosts` file is configured to resolve `apim.localhost` to the appropriate IP address (e.g., `127.0.0.1` for local setups).
-
+> **Note**: Ensure that your local DNS or `/etc/hosts` file is configured to resolve `apim.localhost` `gw.localhost` to the appropriate IP address (e.g., `127.0.0.1` for local setups).
+```sh
+127.0.0.1       apim.localhost
+127.0.0.1       gw.localhost
+```
 ## Configuration Details
 
 **NGINX Configuration**
