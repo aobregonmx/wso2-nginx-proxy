@@ -50,10 +50,8 @@ Generate a self-signed SSL certificate or use your own SSL certificate. If you c
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout ./nginx/ssl/selfsigned.key -out ./nginx/ssl/selfsigned.crt \
   -subj "/C=MX/ST=CDMX/L=México City/O=wso2.com/OU=IT/CN=apim.localhost"
-```
-  
-  > **Note**: Customize the `-subj` values (`/C`, `/ST`, `/L`, `/O`, `/OU`, `/CN`) to match your organization's details and location.
-```
+```  
+> **Note**: Customize the `-subj` values (`/C`, `/ST`, `/L`, `/O`, `/OU`, `/CN`) to match your organization's details and location.
 
 Update the following configurations in the respective files for your environment:
 
