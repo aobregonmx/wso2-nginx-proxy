@@ -42,19 +42,17 @@ cd wso2-nginx-proxy
 
 Generate a self-signed SSL certificate or use your own SSL certificate. If you choose to generate a self-signed certificate, you can use the following command:
 ```sh
-# Generate a self-signed SSL certificate
-# This command will create a self-signed certificate valid for 365 days
-# and a private key.
-# Adjust the -subj values as needed for your organization.
-```sh
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout ./nginx/ssl/selfsigned.key -out ./nginx/ssl/selfsigned.crt \
   -subj "/C=MX/ST=CDMX/L=México City/O=wso2.com/OU=IT/CN=apim.localhost"
-```  
-> **Note**: 
-> Customize the `-subj` values (`/C`, `/ST`, `/L`, `/O`, `/OU`, `/CN`) to match your organization's details and location.
-
+``` 
+3. **Update Configuration Files (optional)**
 Update the following configurations in the respective files for your environment:
+
+> **Self-signed SSL certificate**:
+> - The command above generates a self-signed certificate and key.
+> - The certificate is valid for 365 days and can be customized with your organization's details.
+> - Customize the `-subj` values (`/C`, `/ST`, `/L`, `/O`, `/OU`, `/CN`) to match your organization's details and location.
 
 > **nginx.conf**:
 > - Replace `apim.localhost` with your desired domain name.
