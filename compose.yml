@@ -12,15 +12,25 @@ services:
       - ./log/gw:/etc/nginx/log/gw/https
     depends_on:
       - wso2_apim
-    restart: always
+    restart: unless-stopped
     networks:
       - wso2_network
   wso2_apim:
     image: wso2/wso2am:4.3.0
     container_name: apim-manager
+    hostname: wso2_apim
     volumes:
       - ./deployment.toml:/home/wso2carbon/wso2am-4.3.0/repository/conf/deployment.toml
-    restart: always
+      - ./nginx/ssl/selfsigned.crt:/tmp/selfsigned.crt
+    restart: unless-stopped
+    entrypoint: >
+      /bin/bash -c "
+        keytool -list -keystore /home/wso2carbon/wso2am-4.3.0/repository/resources/security/client-truststore.jks -storepass wso2carbon | grep nginx-selfsigned ||
+        keytool -import -trustcacerts -alias nginx-selfsigned -file /tmp/selfsigned.crt -keystore /home/wso2carbon/wso2am-4.3.0/repository/resources/security/client-truststore.jks -storepass wso2carbon -noprompt;
+        /home/wso2carbon/docker-entrypoint.sh
+      "
+    extra_hosts:
+      - "apim.localhost:172.22.0.3"
     networks:
       - wso2_network
 networks:
