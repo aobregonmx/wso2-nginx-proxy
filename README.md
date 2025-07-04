@@ -43,20 +43,20 @@ The main goal of this repository is to provide a secure and efficient way to man
 
 ## Setup Instructions
 
-1. **Update your local DNS or `/etc/hosts` file**
+**1. Update your local DNS or `/etc/hosts` file**
 To ensure that the domain names `apim.localhost` and `gw.localhost` resolve to your local machine, you need to update your local DNS settings or the `/etc/hosts` file. This allows you to access the WSO2 API Manager and the NGINX reverse proxy using these domain names instead of IP addresses.
 ```sh
 127.0.0.1       apim.localhost
 127.0.0.1       gw.localhost
 ```
 
-2. **Clone the Repository**
+**2. Clone the Repository**
 ```sh
 git clone ssh:.../wso2-nginx-proxy.git
 cd wso2-nginx-proxy
 ```
 
-3. **Configure SSL Certificates**
+**3. Configure SSL Certificates**
 Generate a self-signed SSL certificate or use your own SSL certificate. If you choose to generate a self-signed certificate, you can use the following command:
 ```sh
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
@@ -64,7 +64,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -subj "/C=MX/ST=CDMX/L=México City/O=wso2.com/OU=IT/CN=apim.localhost"
 ```
 
-4. **Start the containers using Docker Compose**
+**4. Start the containers using Docker Compose**
 Return to the root directory of the repository and run:
 ```sh
 cd ..
@@ -74,7 +74,7 @@ Run the following command to start the containers:
 docker compose up -d --build
 ```
 
-5. **Access the Services**
+**5. Access the Services**
 - Admin Portal: [https://apim.localhost/admin]
 - Publisher Portal: [https://apim.localhost/publisher]
 - Developer Portal: [https://apim.localhost/devportal]
