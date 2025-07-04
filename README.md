@@ -7,7 +7,7 @@
   - [Configuration Details](#configuration-details)
 - [Portals](#portals)
 - [Known Issues](#known-issues)
-  - [Failed to fetch. Possible Reasons: CORS Network Failure URL scheme must be "http" or "https" for CORS request](#failed-to-fetch-possible-reasons-cors-network-failure-url-scheme-must-be-http-or-https-for-cors-request)
+  - [Failed to fetch](#failed-to-fetch)
   - [Unclassified Authentication Failure](#unclassified-authentication-failure)
 
 # WSO2 API Manager with NGINX Reverse Proxy
@@ -137,7 +137,7 @@ The default password for the admin user is `admin` and the username is `admin`.
 - **Carbon Console**: [https://apim.localhost/carbon](https://apim.localhost/carbon) - For server administration, such as configuring system settings, managing tenants, and monitoring server health.
 
 # Known Issues
-## Failed to fetch. Possible Reasons: CORS Network Failure URL scheme must be "http" or "https" for CORS request
+## Failed to fetch
   ![Failed to fetch](./images/failed-to-fetch.png)
 
   >Understanding the error message:
