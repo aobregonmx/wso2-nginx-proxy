@@ -12,6 +12,8 @@ services:
       - ./log/gw:/etc/nginx/log/gw/https
     depends_on:
       - wso2_apim
+    environment:
+      - TZ=America/Mexico_City
     restart: unless-stopped
     networks:
       - wso2_network
@@ -31,6 +33,8 @@ services:
       "
     extra_hosts:
       - "apim.localhost:172.22.0.3"  # Cambia la IP por la que tenga tu contenedor NGINX
+    environment:
+      - TZ=America/Mexico_City
     networks:
       - wso2_network
 networks:
