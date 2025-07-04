@@ -1,3 +1,13 @@
+- [WSO2 API Manager with NGINX Reverse Proxy](#wso2-api-manager-with-nginx-reverse-proxy)
+  - [Purpose](#purpose)
+  - [Prerequisites](#prerequisites)
+  - [Repository Structure](#repository-structure)
+  - [Setup Instructions](#setup-instructions)
+  - [Customize the configuration (OPTIONAL)](#customize-the-configuration-optional)
+  - [Configuration Details](#configuration-details)
+- [Portals](#portals)
+- [Known Issues](#known-issues)
+
 # WSO2 API Manager with NGINX Reverse Proxy
 
 This repository contains the configuration files and instructions to set up a WSO2 API Manager (APIM) with an NGINX reverse proxy. The purpose of this setup is to ensure that the internal URLs of the WSO2 APIM are not exposed to the public, and all traffic is routed through the NGINX reverse proxy.
@@ -31,23 +41,46 @@ The main goal of this repository is to provide a secure and efficient way to man
 
 ## Setup Instructions
 
-1. **Clone the Repository**
-
+1. **Update your local DNS or `/etc/hosts` file**
+To ensure that the domain names `apim.localhost` and `gw.localhost` resolve to your local machine, you need to update your local DNS settings or the `/etc/hosts` file. This allows you to access the WSO2 API Manager and the NGINX reverse proxy using these domain names instead of IP addresses.
 ```sh
-git clone https://github.com/aobregon/wso2-nginx-proxy.git
+127.0.0.1       apim.localhost
+127.0.0.1       gw.localhost
+```
+
+2. **Clone the Repository**
+```sh
+git clone ssh:.../wso2-nginx-proxy.git
 cd wso2-nginx-proxy
 ```
 
-2. **Configure SSL Certificates**
-
+3. **Configure SSL Certificates**
 Generate a self-signed SSL certificate or use your own SSL certificate. If you choose to generate a self-signed certificate, you can use the following command:
 ```sh
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout ./nginx/ssl/selfsigned.key -out ./nginx/ssl/selfsigned.crt \
   -subj "/C=MX/ST=CDMX/L=México City/O=wso2.com/OU=IT/CN=apim.localhost"
-``` 
-3. **Update Configuration Files (optional)**
-Update the following configurations in the respective files for your environment:
+```
+
+4. **Start the containers using Docker Compose**
+Return to the root directory of the repository and run:
+```sh
+cd ..
+```
+Run the following command to start the containers:
+```sh
+docker compose up -d --build
+```
+
+5. **Access the Services**
+- Admin Portal: [https://apim.localhost/admin]
+- Publisher Portal: [https://apim.localhost/publisher]
+- Developer Portal: [https://apim.localhost/devportal]
+- Carbon Console: [https://apim.localhost/carbon]
+- Gateway: [https://gw.localhost]
+
+## Customize the configuration (OPTIONAL)
+You can update configuration files of NGINX and WSO2 API Manager according to your needs. Below are the configurations you can update:
 
 > **Self-signed SSL certificate**:
 > - The command above generates a self-signed certificate and key.
@@ -61,31 +94,7 @@ Update the following configurations in the respective files for your environment
 > **deployment.toml**:
 > - Set the `hostname` property under `[server]` to match your public-facing domain (e.g., `apim.localhost`).
 
-> **compose.yml**:
-> - Ensure the `extra_hosts` entry points to the correct IP address of your NGINX container. This is typically the IP address of the NGINX service in your Docker network.
-> - Obtain the IP of NGINX with:
-> `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' nginx-proxy`
-> - If the IP changes, update this value.
 
-4. **Start the containers using Docker Compose**
-
-Return to the root directory of the repository and run:
-```sh
-cd ..
-```
-Run the following command to start the containers:
-```sh
-docker compose up -d --build
-```
-
-5. **Access the Services**
-- WSO2 API Manager: https://apim.localhost
-
-> **Note**: Ensure that your local DNS or `/etc/hosts` file is configured to resolve `apim.localhost` `gw.localhost` to the appropriate IP address (e.g., `127.0.0.1` for local setups).
-```sh
-127.0.0.1       apim.localhost
-127.0.0.1       gw.localhost
-```
 ## Configuration Details
 
 **NGINX Configuration**
@@ -115,7 +124,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 **Contributing**
 Contributions are welcome! Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for detailed guidelines. You can also open an issue or submit a pull request for any improvements or bug fixes.
 
-## Portals
+# Portals
 
 The WSO2 API Manager consists of several web interfaces, all accessible through the NGINX reverse proxy:
 The default password for the admin user is `admin` and the username is `admin`.
@@ -124,3 +133,28 @@ The default password for the admin user is `admin` and the username is `admin`.
 - **Publisher Portal**: [https://apim.localhost/publisher](https://apim.localhost/publisher) - For API creation, documentation, and lifecycle management, including defining API resources, policies, and publishing APIs.
 - **Developer Portal**: [https://apim.localhost/devportal](https://apim.localhost/devportal) - For discovering, subscribing, and testing APIs, allowing developers to explore available APIs and integrate them into their applications.
 - **Carbon Console**: [https://apim.localhost/carbon](https://apim.localhost/carbon) - For server administration, such as configuring system settings, managing tenants, and monitoring server health.
+
+# Known Issues
+1. **Failed to fetch. Possible Reasons: CORS Network Failure URL scheme must be "http" or "https" for CORS request.**:
+  ![Failed to fetch](./images/failed-to-fetch.png)
+
+  Understanding the error message:
+  The net::ERR_CERT_AUTHORITY_INVALID error indicates that your browser does not trust the security certificate presented by the server at https://gw.localhost. This typically happens because the certificate is either self-signed, expired, or issued by an authority that your browser does not recognize as valid.
+
+  To resolve this issue, you can do the following:
+  - Add an exception in your browser to trust the self-signed certificate. This is done automatically when you access the URL https://gw.localhost/ for the first time and click the link "Proceed to gw.localhost (unsafe)."
+  ![trust-self-signed-certificate](./images/trust-self-signed-certificate.png)
+
+   - After this, you can access the URL https://gw.localhost/ and see the message "Welcome to WSO2 API Manager" in your browser.
+   ![successful-access-gw](./images/successful-access-gw.png)
+
+2. **Unclassified Authentication Failure**:
+  ![Unclassified Authentication Failure](./images/unclassified-authentication-failure.png)
+
+  Understanding the error message:
+  The error message "Unclassified Authentication Failure" indicates that the WSO2 API Manager is unable to authenticate the request due to an unspecified issue. This configuration is typical in architectures where a reverse proxy (NGINX) is used in front of an application (WSO2 API Manager), and the application needs to perform callbacks or communicate back with the proxy using a specific domain name.
+
+  To resolve this issue, you can try the following steps:
+  - Obtain the IP of the NGINX container with: `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' nginx-proxy`
+  - Ensure the `extra_hosts` entry in your Docker Compose file points to the correct IP address of your NGINX container.
+  - If the IP changes, update this value accordingly.
