@@ -138,8 +138,8 @@ The default password for the admin user is `admin` and the username is `admin`.
 1. **Failed to fetch. Possible Reasons: CORS Network Failure URL scheme must be "http" or "https" for CORS request.**:
   ![Failed to fetch](./images/failed-to-fetch.png)
 
-  Understanding the error message:
-  The net::ERR_CERT_AUTHORITY_INVALID error indicates that your browser does not trust the security certificate presented by the server at https://gw.localhost. This typically happens because the certificate is either self-signed, expired, or issued by an authority that your browser does not recognize as valid.
+  >Understanding the error message:
+  >The net::ERR_CERT_AUTHORITY_INVALID error indicates that your browser does not trust the security certificate presented by the server at https://gw.localhost. This typically happens because the certificate is either self-signed, expired, or issued by an authority that your browser does not recognize as valid.
 
   To resolve this issue, you can do the following:
   - Add an exception in your browser to trust the self-signed certificate. This is done automatically when you access the URL https://gw.localhost/ for the first time and click the link "Proceed to gw.localhost (unsafe)."
@@ -151,8 +151,8 @@ The default password for the admin user is `admin` and the username is `admin`.
 2. **Unclassified Authentication Failure**:
   ![Unclassified Authentication Failure](./images/unclassified-authentication-failure.png)
 
-  Understanding the error message:
-  The error message "Unclassified Authentication Failure" indicates that the WSO2 API Manager is unable to authenticate the request due to an unspecified issue. This configuration is typical in architectures where a reverse proxy (NGINX) is used in front of an application (WSO2 API Manager), and the application needs to perform callbacks or communicate back with the proxy using a specific domain name.
+  >Understanding the error message:
+  >The error message "Unclassified Authentication Failure" indicates that the WSO2 API Manager is unable to authenticate the request due to an unspecified issue. This configuration is typical in architectures where a reverse proxy (NGINX) is used in front of an application (WSO2 API Manager), and the application needs to perform callbacks or communicate back with the proxy using a specific domain name.
 
   To resolve this issue, you can try the following steps:
   - Obtain the IP of the NGINX container with: `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' nginx-proxy`
