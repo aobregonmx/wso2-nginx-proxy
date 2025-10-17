@@ -52,8 +52,8 @@ To ensure that the domain names `apim.localhost` and `gw.localhost` resolve to y
 
 **2. Clone the Repository**
 ```sh
-git clone ssh:.../wso2-nginx-proxy.git
-cd wso2-nginx-proxy
+git clone ssh:.../wso2am-nginx-proxy.git
+cd wso2am-nginx-proxy
 ```
 
 **3. Configure SSL Certificates**
@@ -65,10 +65,6 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 ```
 
 **4. Start the containers using Docker Compose**
-Return to the root directory of the repository and run:
-```sh
-cd ..
-```
 Run the following command to start the containers:
 ```sh
 docker compose up -d --build
