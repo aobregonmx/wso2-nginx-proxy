@@ -48,6 +48,7 @@ To ensure that the domain names `apim.localhost` and `gw.localhost` resolve to y
 ```sh
 127.0.0.1       apim.localhost
 127.0.0.1       gw.localhost
+127.0.0.1.      websub.localhost
 ```
 
 **2. Clone the Repository**
