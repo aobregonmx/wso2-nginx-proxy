@@ -291,6 +291,3 @@ iat_validity_period = "1h"
 #service_username = "admin"
 #service_password = "admin"
 
-# Ejemplo para JWKS endpoint y otros servicios internos
-[apim.oauth_config]
-jwks_endpoint = "https://wso2_apim:9443/oauth2/jwks"
