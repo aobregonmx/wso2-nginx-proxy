@@ -67,8 +67,8 @@ service_url = "https://wso2_apim:${mgt.transport.https.port}/services/"
 show_as_token_endpoint_url = true
 type = "hybrid"
 username = "${admin.username}"
-websub_event_receiver_http_endpoint = "http:///wso2_apim:9021"
-websub_event_receiver_https_endpoint = "https:///wso2_apim:8021"
+websub_event_receiver_http_endpoint = "http://wso2_apim:9021"
+websub_event_receiver_https_endpoint = "https://wso2_apim:8021"
 ws_endpoint = "ws://wso2_apim:9099"
 wss_endpoint = "wss://wso2_apim:8099"
 
@@ -293,4 +293,4 @@ iat_validity_period = "1h"
 
 # Ejemplo para JWKS endpoint y otros servicios internos
 [apim.oauth_config]
-jwks_endpoint = "https://wso2_apim:443/oauth2/jwks"
+jwks_endpoint = "https://wso2_apim:9443/oauth2/jwks"
