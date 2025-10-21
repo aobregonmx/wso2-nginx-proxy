@@ -60,9 +60,12 @@ cd wso2am-nginx-proxy
 **3. Configure SSL Certificates**
 Generate a self-signed SSL certificate or use your own SSL certificate. If you choose to generate a self-signed certificate, you can use the following command:
 ```sh
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-  -keyout ./nginx/ssl/selfsigned.key -out ./nginx/ssl/selfsigned.crt \
-  -subj "/C=MX/ST=CDMX/L=México City/O=wso2.com/OU=IT/CN=apim.localhost"
+openssl req -x509 -nodes -days 365 \
+  -newkey rsa:2048 \
+  -keyout ./nginx/ssl/selfsigned.key \
+  -out ./nginx/ssl/selfsigned.crt \
+  -subj "/C=MX/ST=CDMX/L=México City/O=MiOrg/OU=IT/CN=*.localhost" \
+  -addext "subjectAltName=DNS:*.localhost,DNS:apim.localhost,DNS:gw.localhost,DNS:websub.localhost"
 ```
 
 **4. Start the containers using Docker Compose**

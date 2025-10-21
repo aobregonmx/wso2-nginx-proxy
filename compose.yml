@@ -17,7 +17,11 @@ services:
       - TZ=America/Mexico_City
     restart: unless-stopped
     networks:
-      - wso2_network
+      wso2_network:
+        aliases:
+          - apim.localhost
+          - gw.localhost
+          - websub.localhost
   wso2_apim:
     image: wso2/wso2am:4.3.0
     container_name: apim-manager
@@ -34,8 +38,11 @@ services:
         keytool -import -trustcacerts -alias nginx-selfsigned -file /tmp/selfsigned.crt -keystore /home/wso2carbon/wso2am-4.3.0/repository/resources/security/client-truststore.jks -storepass wso2carbon -noprompt;
         /home/wso2carbon/docker-entrypoint.sh
       "
-    extra_hosts:
-      - "apim.localhost:172.18.0.3" # Cambia la IP por la que tenga tu contenedor NGINX
+    # extra_hosts removed — Docker DNS will resolve the aliases configured on nginx
+    # extra_hosts:
+    #   - "apim.localhost:172.18.0.3"
+    #   - "gw.localhost:172.18.0.3"
+    #   - "websub.localhost:172.18.0.3"
     environment:
       - TZ=America/Mexico_City
     networks:
