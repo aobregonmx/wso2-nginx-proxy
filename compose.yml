@@ -10,6 +10,7 @@ services:
       - ./nginx/ssl:/etc/nginx/ssl
       - ./log/am:/etc/nginx/log/am/https
       - ./log/gw:/etc/nginx/log/gw/https
+      - ./log/websub:/etc/nginx/log/websub/https
     depends_on:
       - wso2_apim
     environment:
@@ -34,7 +35,7 @@ services:
         /home/wso2carbon/docker-entrypoint.sh
       "
     extra_hosts:
-      - "apim.localhost:172.22.0.3"  # Cambia la IP por la que tenga tu contenedor NGINX
+      - "apim.localhost:172.22.0.3" # Cambia la IP por la que tenga tu contenedor NGINX
     environment:
       - TZ=America/Mexico_City
     networks:
