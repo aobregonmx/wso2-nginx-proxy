@@ -12,3 +12,8 @@ Icon?
 # Ignore SSL certificates and keys in nginx ssl directory
 nginx/ssl/*.crt
 nginx/ssl/*.key
+
+# Ignorar todo en apim-repository excepto .gitkeep
+apim-repository/*
+!apim-repository/.gitkeep
+

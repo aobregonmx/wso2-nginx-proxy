@@ -29,7 +29,7 @@ services:
     volumes:
       - ./deployment.toml:/home/wso2carbon/wso2am-4.3.0/repository/conf/deployment.toml
       - ./log4j2.properties:/home/wso2carbon/wso2am-4.3.0/repository/conf/log4j2.properties
-      - apim_repository:/home/wso2carbon/wso2am-4.3.0/repository
+      - ./apim-repository:/home/wso2carbon/wso2am-4.3.0/repository
       - ./nginx/ssl/selfsigned.crt:/tmp/selfsigned.crt
     restart: unless-stopped
     entrypoint: >
@@ -50,5 +50,3 @@ services:
 networks:
   wso2_network:
     driver: bridge
-volumes:
-  apim_repository:
