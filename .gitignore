@@ -13,7 +13,3 @@ Icon?
 nginx/ssl/*.crt
 nginx/ssl/*.key
 
-# Ignorar todo en apim-repository excepto .gitkeep
-apim-repository/*
-!apim-repository/.gitkeep
-

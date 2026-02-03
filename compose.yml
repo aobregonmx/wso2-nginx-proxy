@@ -29,8 +29,8 @@ services:
     volumes:
       - ./deployment.toml:/home/wso2carbon/wso2am-4.3.0/repository/conf/deployment.toml
       - ./log4j2.properties:/home/wso2carbon/wso2am-4.3.0/repository/conf/log4j2.properties
-      - ./apim-repository:/home/wso2carbon/wso2am-4.3.0/repository
       - ./nginx/ssl/selfsigned.crt:/tmp/selfsigned.crt
+      - apim_repository_data:/home/wso2carbon/wso2am-4.3.0/repository
     restart: unless-stopped
     entrypoint: >
       /bin/bash -c "
@@ -47,6 +47,10 @@ services:
       - TZ=America/Mexico_City
     networks:
       - wso2_network
+
 networks:
   wso2_network:
     driver: bridge
+
+volumes:
+  apim_repository_data:
